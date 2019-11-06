@@ -1,38 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Node from "./components/Node";
+import list from './list';
 
-const App = () => (
-  <React.Fragment>
-    <input placeholder="filter" type="text"/>
+const App = () => {
+  const [filter, setFilter] = useState("");
+  const [checkedNodes, setCheckedNodes] = useState([]);
 
-    <div className="node">
-      <input type="checkbox" checked/>
-      <span>North America</span>
+  return (
+    <React.Fragment>
+      <input type="text"
+             placeholder="filter"
+             value={filter}
+             onChange={(event) => setFilter(event.target.value)}/>
 
-      <div className="children">
-        <div className="node">
-          <input type="checkbox" checked/>
-          <span>Canada</span>
-
-          <div className="children">
-            <div className="node">
-              <input type="checkbox" checked/>
-              <span>Montreal</span>
-            </div>
-
-            <div className="node">
-              <input type="checkbox"/>
-              <span>Toronto</span>
-            </div>
-
-            <div className="node">
-              <input type="checkbox" checked/>
-              <span>Ottawa</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </React.Fragment>
-);
+      {list.map((node) => (
+        <Node key={node.name}
+              node={node}
+              filter={filter}
+              setCheckedNodes={setCheckedNodes}
+              checkedNodes={checkedNodes}/>
+      ))}
+    </React.Fragment>
+  );
+};
 
 export default App;
