@@ -3,11 +3,6 @@ import {connect} from 'react-redux';
 
 class Tree extends React.Component
 {
-  isLeaf()
-  {
-    return !Array.isArray(this.props.tree.children);
-  }
-
   render()
   {
     console.log(this.props);
@@ -40,7 +35,6 @@ class Tree extends React.Component
                      type: 'CHANGE_CHECK',
                      pathFromRoot: parentsForChildren,
                      children: this.props.tree.children,
-                     sourceIsLeaf: this.isLeaf(),
                      sourceLeavesNumber: this.props.tree.leavesNumber,
                      sourceCheckedLeavesNumber: this.props.tree.checkCounter,
                      checkedValue: event.target.checked

@@ -20,7 +20,7 @@ export default function checkedNodes(state={treesList:[]}, action)
                 return tree.name === rootName;
             });
 
-            updatePathWithChecked(tree,pathFromRoot,action.sourceIsLeaf,action.checkedValue,
+            updatePathWithChecked(tree,pathFromRoot,action.checkedValue,
                 sourceLeavesNumber,sourceCheckedLeavesNumber);
             tree.children = mutateTreeList(tree.children);
             state.treesList = [...state.treesList];
