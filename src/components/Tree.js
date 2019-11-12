@@ -1,24 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
+import {getTreeCheckedLeaves} from '../data/hepler'
 class Tree extends React.Component
 {
-  constructor(props)
+  isLeaf()
   {
-    super(props);
-    this.state = {
-      name: this.props.tree.name,
-      checked: this.props.tree.checked,
-
-      parents: this.props.parents,
-      children: this.props.tree.children
-    };
-  }
-
-  static deriveStateFromProps(props, state, prevProps)   {
-    return {
-      checked: props.tree.checked
-    };
+    return !Array.isArray(this.props.tree.children);
   }
 
   render()
@@ -26,15 +13,15 @@ class Tree extends React.Component
     console.log(this.props);
     let childrenTree='';
     let children = this.props.tree.children;
-    let childrenParents = this.state.parents.slice();
-    childrenParents.push(this.state.name);
+    let parentsForChildren = this.props.parents.slice();
+    parentsForChildren.push(this.props.tree.name);
     if ( children !== undefined && children.length) {
       childrenTree = children.map( ( childTree, index) =>
       {
         return <Tree
             key={index}
             tree={childTree}
-            parents={childrenParents}
+            parents={parentsForChildren}
             dispatch={this.props.dispatch}
         />
       });
@@ -46,16 +33,23 @@ class Tree extends React.Component
 
     return <div className="node">
       <input type="checkbox"
-             checked={this.state.checked}
+             checked={this.props.tree.checked}
 
-             onChange={ event =>
-               {
-                 let pathFromRoot = childrenParents;
-                 this.props.dispatch({type:'CHANGE_CHECK', pathFromRoot:pathFromRoot })
-               }
+             onChange={event => {
+                 this.props.dispatch({
+                     type: 'CHANGE_CHECK',
+                     pathFromRoot: parentsForChildren,
+                     children: this.props.tree.children,
+                     sourceIsLeaf: this.isLeaf(),
+                     sourceLeavesNumber: this.props.tree.leavesNumber,
+                     sourceCheckedLeavesNumber: this.props.tree.checkCounter,
+                     // sourceCheckedLeavesNumber: getTreeCheckedLeaves(this.props.tree),
+                     checkedValue: event.target.checked
+                 })
+                }
              }
       />
-      <span>{this.state.name}</span>
+      <span>{this.props.tree.name}</span>
       {childrenTree}
     </div>;
   }

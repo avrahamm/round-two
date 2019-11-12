@@ -5,14 +5,6 @@ import Tree from "./Tree";
 
 class TreesContainer extends React.Component
 {
-  constructor(props)
-  {
-    super(props);
-    this.state = {
-      treesList:[]
-    };
-  }
-
   render() {
     const trees = this.props.treesList.map( (tree, index) =>
     {

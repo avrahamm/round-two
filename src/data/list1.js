@@ -5,9 +5,29 @@ export default [
       {
         name: "Israel",
         children: [
-          { name: "Tel Aviv" },
-          { name: "Jerusalem" },
+          {
+            name: "Tel Aviv",
+            children: [
+              { name: "Florentin" },
+              { name: "Sharona" },
+              { name: "Shaanan" }
+            ]
+          },
+          {
+            name: "Jerusalem",
+            children: [
+              { name: "Arnona" },
+              { name: "Katamon" },
+              { name: "Talpiot" }
+            ]
+          },
           { name: "Haifa" }
+        ]
+      },
+      {
+        name: 'Egypt',
+        children: [
+          { name: 'Cairo'}
         ]
       }
     ]

@@ -1,3 +1,5 @@
+import {updatePathWithChecked,mutateTreeList} from '../data/hepler';
+
 export default function checkedNodes(state={treesList:[]}, action)
 {
     switch (action.type) {
@@ -8,17 +10,21 @@ export default function checkedNodes(state={treesList:[]}, action)
 
         // {type:'CHANGE_CHECK', pathFromRoot:pathFromRoot }
         case 'CHANGE_CHECK': {
-            state = {...state};
             let pathFromRoot = action.pathFromRoot;
             let rootName = pathFromRoot[0];
-            let tree = state.treesList.find( (tree) =>
+            let sourceLeavesNumber = action.sourceLeavesNumber;
+            let sourceCheckedLeavesNumber = action.sourceCheckedLeavesNumber;
+
+            const tree = state.treesList.find( (tree) =>
             {
-                return tree.name === rootName ;
+                return tree.name === rootName;
             });
 
-
-
-            return state;
+            updatePathWithChecked(tree,pathFromRoot,action.sourceIsLeaf,action.checkedValue,
+                sourceLeavesNumber,sourceCheckedLeavesNumber);
+            tree.children = mutateTreeList(tree.children);
+            state.treesList = [...state.treesList];
+            return {...state};
         }
 
         default: {
