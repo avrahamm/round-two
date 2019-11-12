@@ -1,27 +1,49 @@
 import {CHECKED, UNCHECKED, ROOT_TO_SOURCE, SOURCE_SUB_TREE} from "../actions/constants";
 
-function updatePathWithChecked(node, pathFromRoot,sourceIsLeaf, checkedValue,
+/**
+ * Updates path from tree root to source
+ * and then updates source children.
+ * Works recursively.
+ *
+ * @param node
+ * @param pathFromRootToSource
+ * @param sourceIsLeaf
+ * @param checkedValue
+ * @param sourceLeavesNumber
+ * @param sourceCheckedLeavesNumber
+ * @returns {(void|undefined)|void}
+ */
+function updatePathWithChecked(node, pathFromRootToSource,sourceIsLeaf, checkedValue,
                                sourceLeavesNumber, sourceCheckedLeavesNumber)
 {
-    if ( node.name === pathFromRoot[0]) {
-        // sourceLeavesNumber as node is in path from root to source of click, including.
+    if ( node.name === pathFromRootToSource[0]) {
+        // counterDiff is sourceLeavesNumber,
+        // as node is in path from root to source of click, including.
         updateNodeWithCheckedValue(node,checkedValue,sourceIsLeaf,
             sourceLeavesNumber,ROOT_TO_SOURCE, sourceCheckedLeavesNumber);
-        pathFromRoot.shift();
+        pathFromRootToSource.shift();
     }
 
-    if ( pathFromRoot.length === 0 ) {
+    // path to source finished, update source children.
+    if ( pathFromRootToSource.length === 0 ) {
         return updateNodeTreeListWithChecked(node.children, checkedValue, sourceCheckedLeavesNumber);
     }
     else {
-        let nextChildInPath = node.children.find( (child) => child.name === pathFromRoot[0]);
+        // walks through path to source
+        let nextChildInPath = node.children.find( (child) => child.name === pathFromRootToSource[0]);
         if ( nextChildInPath !== undefined ) {
-            return updatePathWithChecked(nextChildInPath, pathFromRoot,sourceIsLeaf, checkedValue,
+            return updatePathWithChecked(nextChildInPath, pathFromRootToSource,sourceIsLeaf, checkedValue,
                 sourceLeavesNumber,sourceCheckedLeavesNumber);
         }
     }
 }
 
+/**
+ * Updates source children.
+ * @param treesList
+ * @param checkedValue
+ * @param sourceCheckedLeavesNumber
+ */
 function updateNodeTreeListWithChecked(treesList, checkedValue, sourceCheckedLeavesNumber)
 {
     if (Array.isArray(treesList)) {
@@ -59,13 +81,12 @@ function updateNodeWithCheckedValue(node, checkedValue, sourceIsLeaf,
             if ( partOfPath === ROOT_TO_SOURCE) {
                 // node in path from root to the source of checked click, adds sourceLeavesNumber
                 node.checkCounter += counterDiff;
-                node.checked = checkedValue;
             }
             else {
                 // node in the source of checked click subtree
                 node.checkCounter += node.leavesNumber;
-                node.checked = checkedValue;
             }
+            node.checked = checkedValue;
         }
         else  if ( checkedValue === UNCHECKED ) {
             if ( partOfPath === ROOT_TO_SOURCE) {
@@ -115,21 +136,6 @@ function initTreeNode(node) {
     node.checked = UNCHECKED;
 }
 
-function getTreeCheckedLeaves(node)
-{
-    let checkedLeaves = 0;
-    if ( !Array.isArray(node.children) ) {
-        return node.checkCounter;
-    }
-
-    node.children.forEach( childTree =>
-    {
-        checkedLeaves += getTreeCheckedLeaves(childTree);
-    })
-
-    return checkedLeaves;
-}
-
 function mutateTreeList(treeArray)
 {
     const mutatedTreeArray = treeArray.map(
@@ -147,4 +153,4 @@ function mutateTreeList(treeArray)
 
 export { updateNodeTreeListWithChecked, updatePathWithChecked,
     updateNodeWithCheckedValue, initTreesArray,
-    getTreeCheckedLeaves, mutateTreeList};
+    mutateTreeList};

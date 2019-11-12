@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getTreeCheckedLeaves} from '../data/hepler'
+
 class Tree extends React.Component
 {
   isLeaf()
@@ -43,7 +43,6 @@ class Tree extends React.Component
                      sourceIsLeaf: this.isLeaf(),
                      sourceLeavesNumber: this.props.tree.leavesNumber,
                      sourceCheckedLeavesNumber: this.props.tree.checkCounter,
-                     // sourceCheckedLeavesNumber: getTreeCheckedLeaves(this.props.tree),
                      checkedValue: event.target.checked
                  })
                 }
