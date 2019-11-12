@@ -130,12 +130,21 @@ function initTreesArray(treesArray)
     return treesArrayLeavesNumber;
 }
 
+/**
+ * Initializes tree node to prepare for redux logic.
+ * @param node
+ */
 function initTreeNode(node) {
-    // init
     node.checkCounter = 0;
     node.checked = UNCHECKED;
 }
 
+/**
+ * Mutates redux state to send to subscribers.
+ *
+ * @param treeArray
+ * @returns {*}
+ */
 function mutateTreeList(treeArray)
 {
     const mutatedTreeArray = treeArray.map(
