@@ -1,6 +1,6 @@
-import {updatePathWithChecked,mutateTreeList} from '../data/hepler';
+import {updatePathWithChecked,mutateTreeList, filterVisibleNodes} from '../data/hepler';
 
-export default function checkedNodes(state={treesList:[]}, action)
+export default function checkedNodes(state={treesList:[], filter:''}, action)
 {
     switch (action.type) {
         case 'INIT_TREES': {
@@ -14,6 +14,7 @@ export default function checkedNodes(state={treesList:[]}, action)
             let rootName = pathFromRoot[0];
             let sourceLeavesNumber = action.sourceLeavesNumber;
             let sourceCheckedLeavesNumber = action.sourceCheckedLeavesNumber;
+            const filter = state.filter;
 
             const tree = state.treesList.find( (tree) =>
             {
@@ -21,10 +22,16 @@ export default function checkedNodes(state={treesList:[]}, action)
             });
 
             updatePathWithChecked(tree,pathFromRoot,action.checkedValue,
-                sourceLeavesNumber,sourceCheckedLeavesNumber);
-            tree.children = mutateTreeList(tree.children);
-            state.treesList = [...state.treesList];
+                sourceLeavesNumber,sourceCheckedLeavesNumber, filter);
+            state.treesList = mutateTreeList(state.treesList);
             return {...state};
+        }
+
+        case 'FILTER': {
+            const filter = action.filter;
+            state.treesList = mutateTreeList(state.treesList);
+            filterVisibleNodes(state.treesList, filter);
+            return {...state, filter:filter};
         }
 
         default: {

@@ -1,10 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {HIDDEN} from "../actions/constants";
 
 class Tree extends React.Component
 {
   render()
   {
+      if ( this.props.tree.display === HIDDEN ) {
+          return '';
+      }
+
     console.log(this.props);
     let childrenTree='';
     let children = this.props.tree.children;

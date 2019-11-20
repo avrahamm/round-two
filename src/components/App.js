@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import Filter from "./Filter";
 import {initTreesArray} from '../data/hepler';
 import TreesContainer from "./TreesContainer";
 
-import treesList from '../data/list1';
+import treesList from '../data/list3';
 
 class App extends React.Component
 {
@@ -17,6 +18,7 @@ class App extends React.Component
   render()
   {
     return <React.Fragment>
+      <Filter />
       <TreesContainer />
     </React.Fragment>;
   }

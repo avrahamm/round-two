@@ -6,20 +6,10 @@ export default [
         name: "Israel",
         children: [
           {
-            name: "Tel Aviv",
-            children: [
-              { name: "Florentin" },
-              { name: "Sharona" },
-              { name: "Shaanan" }
-            ]
+            name: "Tel Aviv"
           },
           {
-            name: "Jerusalem",
-            children: [
-              { name: "Arnona" },
-              { name: "Katamon" },
-              { name: "Talpiot" }
-            ]
+            name: "Jerusalem"
           },
           { name: "Haifa" }
         ]
