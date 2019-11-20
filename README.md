@@ -14,9 +14,9 @@ Use the provided list of values. Good luck!
 * master branch contains school solution by Ilia Gelman.
 
 * avraham-solution branch holds my solution with React class components and redux.
-* - So clone,
-* - git checkout desired-branch
-* - yarn start
+- So clone,
+- git checkout desired-branch
+- yarn start
 
-master runs on http://localhost:3000
-avraham-solution runs on http://localhost:3006 , see .env file.
+* master runs on http://localhost:3000
+* avraham-solution runs on http://localhost:3006 , see .env file.
