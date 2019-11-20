@@ -11,7 +11,7 @@ Use the provided list of values. Good luck!
 
 ===========================
 # Summary:
-* master branch contains school solution by Ilia Gelman.
+* master branch contains school solution by Ilya Gelman.
 
 * avraham-solution branch holds my solution with React class components and redux.
 - So clone,
