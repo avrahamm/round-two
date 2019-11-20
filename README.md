@@ -11,12 +11,12 @@ Use the provided list of values. Good luck!
 
 ===========================
 # Summary:
-* master branch contains school solution by Ilya Gelman.
+* master branch contains my solution with React class components and redux.
 
-* avraham-solution branch holds my solution with React class components and redux.
+* school-solution branch holds Ilya Gelman solution.
 - So clone,
 - git checkout desired-branch
 - yarn start
 
-* master runs on http://localhost:3000
-* avraham-solution runs on http://localhost:3006 , see .env file.
+* master runs on http://localhost:3006 , see .env file.
+* school-solution runs on http://localhost:3000
