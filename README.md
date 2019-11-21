@@ -20,3 +20,6 @@ Use the provided list of values. Good luck!
 
 * master runs on http://localhost:3006 , see .env file.
 * school-solution runs on http://localhost:3000
+
+# Deplyed to 
+https://round-two.herokuapp.com/
